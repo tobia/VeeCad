@@ -1,5 +1,8 @@
-*.dcu
 __history
+*_tmphhp
 *.dproj.local
+*.identcache
+*.dcu
 *.exe
 *.ico
+*.chm
