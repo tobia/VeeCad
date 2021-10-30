@@ -846,12 +846,16 @@ end;
 // returned coords by PixelsPerCell and add Item.X * PixelsPerCell etc
 
 procedure CalculateLinkRect(
-    Pin2Delta : TPoint; var Point1, Point2, Point3, Point4 : TFloatPoint );
+    Pin2Delta : TPoint; var Point1, Point2, Point3, Point4 : TFloatPoint; 
+    doubleLeads : boolean );
 
 var
     Hypotenuse : single;
     SinTheta : single;
     CosTheta : single;
+    XOffset : single;
+    HalfWidth : single;
+    HeightExtra : single;
 
     // rotate coord pair about (0,0), by angle Theta
     procedure RotateF( var X1, Y1 : single );
@@ -877,10 +881,6 @@ var
         Point.Y :=   XTemp*SinTheta + YTemp*CosTheta;
     end;
 
-const
-    HalfWidth = 0.125;
-    HeightExtra = 0.25;
-
 begin
     // theta is the angle of rotation. Zero rotation occurs when the part is
     // drawn with pin 2 directly below pin 1 : ie EndDeltaX = 0
@@ -888,19 +888,33 @@ begin
     SinTheta := Pin2Delta.X / Hypotenuse;
     CosTheta := Pin2Delta.Y / Hypotenuse;
 
+    // for double lead style, add a positive horizontal offset before rotation 
+    // and remove some extra height
+    if doubleLeads then begin
+        XOffset := 1/8 + 1/16;
+        HalfWidth := 1/16;
+        HeightExtra := -1/8;
+    end 
+    // otherwise, no horizontal offset and regular extra height
+    else begin
+        XOffset := 0;
+        HalfWidth := 1/8;
+        HeightExtra := 1/4;
+    end;
+
     // Will draw link as thin rectangle, hole to hole length, 1/8 cell width
     // ..find coords of rectangle, unrotated, relative to centre of pin 1 cell
     // .. top left
-    Point1.X := -HalfWidth;
+    Point1.X := XOffset - HalfWidth;
     Point1.Y := -HeightExtra;
     // .. top right
-    Point2.X := HalfWidth;
+    Point2.X := XOffset + HalfWidth;
     Point2.Y := -HeightExtra;
     // .. bottom right
-    Point3.X :=  HalfWidth;
+    Point3.X := XOffset + HalfWidth;
     Point3.Y := Hypotenuse + HeightExtra;
     // .. bottom left
-    Point4.X := -HalfWidth;
+    Point4.X := XOffset - HalfWidth;
     Point4.Y := Point3.Y;
 
     // rotate all 4 points to final position
@@ -949,7 +963,8 @@ begin
 
     // get position of 4 points we draw between to display a link, in cell units,
     // relative to Pin 1 at (0,0)
-    CalculateLinkRect( Point(Item.EndDeltaX, Item.EndDeltaY), Point1, Point2, Point3, Point4 );
+    CalculateLinkRect( Point(Item.EndDeltaX, Item.EndDeltaY), Point1, Point2, Point3, Point4, 
+        Info.LeadStyle = lsDouble );
 
     // convert to pixels and offset
     Convert( Point1, X1, Y1 );
@@ -978,7 +993,8 @@ begin
     // relative to Pin 1 at (0,0)
     CalculateLinkRect(
         Point(Item.EndDeltaX, Item.EndDeltaY),
-        LinkRect.Point1, LinkRect.Point2, LinkRect.Point3, LinkRect.Point4
+        LinkRect.Point1, LinkRect.Point2, LinkRect.Point3, LinkRect.Point4,
+        False
     );
 
     // create a rectangle that describes the cell, relative to component origin

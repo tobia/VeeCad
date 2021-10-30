@@ -1518,15 +1518,15 @@ begin
 
             ActiveMouseCellY := (( Y - FBorder ) div PixelsPerCell) - ClickCellOffsetY;
             LinkX := ClickCellX;
-            LinkRotation := rot0;
+            LinkY := ClickCellY;
 
             if ActiveMouseCellY >= ClickCellY then begin
-                LinkY := ClickCellY;
                 LinkLength := ActiveMouseCellY - ClickCellY;
+                LinkRotation := rot0;
             end
             else begin
-                LinkY := ActiveMouseCellY;
                 LinkLength := ClickCellY - ActiveMouseCellY;
+                LinkRotation := rot180;
             end;
         end
 
@@ -1534,16 +1534,16 @@ begin
         else begin
 
             ActiveMouseCellX := (( X - FBorder ) div PixelsPerCell) - ClickCellOffsetX;
+            LinkX := ClickCellX;
             LinkY := ClickCellY;
-            LinkRotation := rot90;
 
             if ActiveMouseCellX >= ClickCellX then begin
-                LinkX := ClickCellX;
                 LinkLength := ActiveMouseCellX - ClickCellX;
+                LinkRotation := rot90;
             end
             else begin
-                LinkX := ActiveMouseCellX;
                 LinkLength := ClickCellX - ActiveMouseCellX;
+                LinkRotation := rot270;
             end;
         end;
 
