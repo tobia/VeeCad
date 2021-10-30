@@ -160,7 +160,7 @@ begin
   Application.CreateForm(TInputBoxForm, InputBoxForm);
   // this entire program assumes '.' is decimal separator
   // Affects StrToFloat, StrToCurrency
-  DecimalSeparator := '.';
+  FormatSettings.DecimalSeparator := '.';
 
   Application.Run;
 end.

@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, Menus, ComCtrls,
   Editor, Project, FileMenuHandler, Outlines, Grids, Calendar, ToolWin, Mask,
-  ImgList, Netlist;
+  ImgList, Netlist, System.ImageList;
 
 type
 

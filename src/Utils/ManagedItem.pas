@@ -153,7 +153,7 @@ end;
 procedure TManagedList.Sort( Compare: TListSortCompare );
 begin
   if (List.List <> nil) and (FCount > 0) then
-    QuickSort(List.List, 0, FCount - 1, Compare);
+    QuickSort(@List.List, 0, FCount - 1, Compare);
 end;
 
 
