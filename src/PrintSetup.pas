@@ -54,6 +54,7 @@ type
     GroupBox10: TGroupBox;
     AppearanceWideLeadTRadioButton: TRadioButton;
     AppearanceNarrowLeadTRadioButton: TRadioButton;
+    AppearanceDoubleLeadTRadioButton: TRadioButton;
     GroupBox11: TGroupBox;
     Label2: TLabel;
     AppearanceHoleDiameterTEdit: TEdit;
@@ -124,6 +125,7 @@ type
     procedure AppearanceValuesTRadioButtonClick(Sender: TObject);
     procedure AppearanceWideLeadTRadioButtonClick(Sender: TObject);
     procedure AppearanceNarrowLeadTRadioButtonClick(Sender: TObject);
+    procedure AppearanceDoubleLeadTRadioButtonClick(Sender: TObject);
     procedure AppearanceHoleDiameterTButtonClick(Sender: TObject);
     procedure AppearanceHoleDiameterTEditKeyPress(Sender: TObject;
       var Key: Char);
@@ -692,6 +694,13 @@ begin
     DrawAppearanceDisplay;
 end;
 
+procedure TPrintSetupForm.AppearanceDoubleLeadTRadioButtonClick(
+  Sender: TObject);
+begin
+    View^.LeadStyle := lsDouble;
+    DrawAppearanceDisplay;
+end;
+
 // *** HOLE DIAMETER EDIT & BUTTON ***
 procedure TPrintSetupForm.AppearanceHoleDiameterTEditKeyPress(
   Sender: TObject; var Key: Char);
@@ -868,16 +877,20 @@ begin
     // lead width
     Save0 := AppearanceNarrowLeadTRadioButton.OnClick;
     Save1 := AppearanceWideLeadTRadioButton.OnClick;
+    Save2 := AppearanceDoubleLeadTRadioButton.OnClick;
     try
         AppearanceNarrowLeadTRadioButton.OnClick := nil;
         AppearanceWideLeadTRadioButton.OnClick := nil;
+        AppearanceDoubleLeadTRadioButton.OnClick := nil;
         case View^.LeadStyle of
             lsLine : AppearanceNarrowLeadTRadioButton.Checked := True;
             lsHollow : AppearanceWideLeadTRadioButton.Checked := True;
+            lsDouble : AppearanceDoubleLeadTRadioButton.Checked := True;
         end;
     finally
         AppearanceNarrowLeadTRadioButton.OnClick := Save0;
         AppearanceWideLeadTRadioButton.OnClick := Save1;
+        AppearanceDoubleLeadTRadioButton.OnClick := Save2;
     end;
 
     // hole diameter
@@ -962,6 +975,9 @@ var
         end
         else if LeadText = 'Wide' then begin
             View^.LeadStyle := lsHollow;
+        end
+        else if LeadText = 'Double' then begin
+            View^.LeadStyle := lsDouble;
         end
         else begin
             View^.LeadStyle := DEFAULT_LEAD_STYLE;
@@ -1061,7 +1077,7 @@ procedure TPrintSetupForm.SaveSettings;
 const
     PrinterComponentTextToStr : array[TPrinterCOmponentText] of string =
         ( 'None', 'Designators', 'Values' );
-    LeadStyleToStr : array[TLeadStyle] of string = ('Wide', 'Narrow' );
+    LeadStyleToStr : array[TLeadStyle] of string = ('Wide', 'Narrow', 'Double' );
 var
     IniFile : TRegIniFile;
 

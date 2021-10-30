@@ -110,6 +110,9 @@ begin
         if LeadStyle = 'Line' then begin
             Editor.LeadStyle := lsLine;
         end
+        else if LeadStyle = 'Double' then begin
+            Editor.LeadStyle := lsDouble;
+        end
         else begin // LeadStyle = 'Hollow'  , also default case
             Editor.LeadStyle := lsHollow;
         end;
@@ -131,7 +134,7 @@ procedure SaveSettings( Editor : TveEditor );
 var
     RegIniFile : TRegIniFile;
 const
-    LeadStyle2Str : array[TLeadStyle] of string = ( 'Hollow', 'Line' );
+    LeadStyle2Str : array[TLeadStyle] of string = ( 'Hollow', 'Line', 'Double' );
 begin
     RegIniFile := GetRegIniFile;
     try

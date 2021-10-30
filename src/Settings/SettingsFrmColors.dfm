@@ -48,7 +48,6 @@ object SetColorsForm: TSetColorsForm
     Width = 185
     Height = 21
     Style = csDropDownList
-    ItemHeight = 0
     TabOrder = 1
     OnChange = SchemesTComboBoxChange
   end
@@ -57,13 +56,13 @@ object SetColorsForm: TSetColorsForm
     Top = 341
     Width = 145
     Height = 21
-    ItemHeight = 13
     TabOrder = 2
     Text = 'ComboBox'
     OnChange = LeadStyleTComboBoxChange
     Items.Strings = (
       'Wide'
-      'Narrow')
+      'Narrow'
+      'Double')
   end
   object LineWidthTUpDown: TUpDown
     Left = 81

@@ -215,10 +215,12 @@ begin
 
         lsHollow : begin
             LeadStyleTComboBox.ItemIndex := 0;
-        end
-        // lsLine :
-        else begin
+        end;
+        lsLine : begin
             LeadStyleTComboBox.ItemIndex := 1;
+        end;
+        lsDouble : begin
+            LeadStyleTComboBox.ItemIndex := 2;
         end;
     end;
     FColorPreviewer.LeadStyle := Editor.LeadStyle;
@@ -503,7 +505,7 @@ end;
 
 procedure TSetColorsForm.LeadStyleTComboBoxChange(Sender: TObject);
 const
-    IntToLeadStyle : array[0..1] of TLeadStyle = ( lsHollow, lsLine );
+    IntToLeadStyle : array[0..2] of TLeadStyle = ( lsHollow, lsLine, lsDouble );
 begin
     ColorPreviewer.LeadStyle := IntToLeadStyle[LeadStyleTComboBox.ItemIndex];
     ColorPreViewer.Paint;

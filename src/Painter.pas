@@ -7,7 +7,7 @@ uses Windows, Graphics, Rotations, GdiHandles;
 type TvePaintOption = ( poXOR );
 type TvePaintOptions = set of TvePaintOption;
 type TTextDisplay = ( tdNone, tdDesignator, tdValue );
-type TLeadStyle = ( lsHollow, lsLine );
+type TLeadStyle = ( lsHollow, lsLine, lsDouble );
 
 // *************** TPolyLines ***************
 

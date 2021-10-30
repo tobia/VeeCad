@@ -381,7 +381,7 @@ begin
     // calculate the rectangles and circles that make up a leaded outline
     CalculateRadialOutline(
         Point(Item.EndDeltaX, Item.EndDeltaY), Diameter, LeadSpacing,
-        (Info.LeadStyle = lsHollow),
+        (Info.LeadStyle <> lsLine),
         Body,
         TopLead, BottomLead,
         LeadCircle,

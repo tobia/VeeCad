@@ -436,6 +436,15 @@ object PrintSetupForm: TPrintSetupForm
             TabOrder = 1
             OnClick = AppearanceNarrowLeadTRadioButtonClick
           end
+          object AppearanceDoubleLeadTRadioButton: TRadioButton
+            Left = 208
+            Top = 16
+            Width = 89
+            Height = 17
+            Caption = 'Double'
+            TabOrder = 2
+            OnClick = AppearanceDoubleLeadTRadioButtonClick
+          end
         end
         object GroupBox11: TGroupBox
           Left = 3

@@ -579,9 +579,9 @@ begin
     // calculate the 4 rectangles that make up a leaded outline
     CalculateLeadedShapes(
         Point(Item.EndDeltaX, Item.EndDeltaY), BodyLength, BodyWidth,
-        Info.LeadStyle = lsHollow, TopLead, Body, BottomLead, Bar1, Bar2 );
+        Info.LeadStyle <> lsLine, TopLead, Body, BottomLead, Bar1, Bar2 );
 
-    if Info.LeadStyle = lsHollow then begin
+    if Info.LeadStyle <> lsLine then begin
 
         // convert to pixels and offset
         Convert( TopLead.Point1, X1, Y1 );
